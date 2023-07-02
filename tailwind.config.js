@@ -14,6 +14,7 @@ module.exports = {
           900: "#222222",
           200: "#BCBCBC",
         },
+        "app-bg": "#F6F5FC",
       },
     },
   },

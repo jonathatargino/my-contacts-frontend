@@ -1,5 +1,8 @@
+import Image from "next/image";
+
 import { Sora } from "next/font/google";
 import "./globals.css";
+import { logoIcon } from "@/assets/images";
 
 const sora = Sora({
   weight: ["400", "700"],
@@ -15,7 +18,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={sora.className}>{children}</body>
+      <body className={`${sora.className} mx-auto w-full max-w-[500px] bg-app-bg py-16`}>
+        <Image src={logoIcon} alt="myContacts" className="mx-auto mb-12" />
+        {children}
+      </body>
     </html>
   );
 }
