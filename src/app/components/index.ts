@@ -5,3 +5,4 @@ export { default as FormHeader } from "@/app/components/FormHeader";
 export { default as Input } from "@/app/components/Input";
 export { default as InputWrapper } from "@/app/components/InputWrapper";
 export { default as Select } from "@/app/components/Select";
+export { default as Modal } from "@/app/components/Modal";

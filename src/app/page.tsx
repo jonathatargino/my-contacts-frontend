@@ -1,8 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { arrowIcon } from "@/assets/images";
 import { IContact } from "@/provider/contact";
-import ContactCard from "./components/ContactCard";
+import { ContactCard } from "@/app/components";
 
 const users: IContact[] = [
   {

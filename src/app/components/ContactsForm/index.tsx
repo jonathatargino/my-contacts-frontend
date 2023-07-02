@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Input, InputWrapper, Select } from "@/app/components";
 
 interface ContactsFormProps {
@@ -28,7 +30,7 @@ export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
           </Select>
         </InputWrapper>
       </div>
-      <Button type="submit" className=" bg-gray-200">
+      <Button type="submit" className="w-full">
         {buttonLabel}
       </Button>
     </form>

@@ -1,12 +1,16 @@
-import { ButtonHTMLAttributes } from "react";
+"use client";
 
-export default function Button({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
+import { ButtonHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
+
+export default function Button({ children, className, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       {...props}
-      className={
-        "h-[52px] w-full rounded bg-primary-main font-bold text-white shadow-soft transition-colors hover:bg-primary-light active:bg-primary-dark disabled:cursor-default disabled:bg-[#ccc]"
-      }
+      className={twMerge(
+        "h-[52px] rounded bg-primary-main px-4 font-bold text-white shadow-soft transition-colors hover:bg-primary-light active:bg-primary-dark disabled:cursor-default disabled:bg-[#ccc]",
+        className,
+      )}
     >
       {children}
     </button>
