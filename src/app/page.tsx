@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-8">
       <input
-        className="h-[50px] w-full rounded-3xl bg-white p-4 placeholder:text-gray-200"
+        className="h-[50px] w-full rounded-3xl bg-white p-4 shadow-soft placeholder:text-gray-200"
         placeholder="Pesquise um contato..."
       />
 

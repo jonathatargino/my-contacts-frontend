@@ -5,11 +5,11 @@ import { IContact } from "@/provider/contact";
 
 export default function ContactCard({ id, name, category, email, phone }: IContact) {
   return (
-    <div className="flex items-center justify-between bg-white p-4">
+    <div className="flex items-center justify-between bg-white p-4 shadow-soft">
       <div>
         <div>
           <strong>{name}</strong>
-          <span className="ml-2 rounded-[4px] bg-primary-lighter p-1 text-xs font-bold uppercase text-primary-main">
+          <span className="ml-2 rounded bg-primary-lighter p-1 text-xs font-bold uppercase text-primary-main">
             {category}
           </span>
         </div>
