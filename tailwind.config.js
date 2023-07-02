@@ -16,6 +16,9 @@ module.exports = {
         },
         "app-bg": "#F6F5FC",
       },
+      boxShadow: {
+        soft: "0px 4px 10px 0px #0000000A",
+      },
     },
   },
   plugins: [],
