@@ -1,4 +1,5 @@
 import { Sora } from "next/font/google";
+import "./globals.css";
 
 const sora = Sora({
   weight: ["400", "700"],

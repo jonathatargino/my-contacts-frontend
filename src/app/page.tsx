@@ -1,3 +1,3 @@
 export default function Home() {
-  return <h1>MyContacts</h1>;
+  return <h2 className="text-primary-main">MyContacts</h2>;
 }
