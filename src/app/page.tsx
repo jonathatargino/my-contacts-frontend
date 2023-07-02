@@ -1,3 +1,10 @@
+import { logoIcon } from "@/assets/images";
+import Image from "next/image";
+
 export default function Home() {
-  return <h2 className="text-primary-main">MyContacts</h2>;
+  return (
+    <>
+      <Image src={logoIcon} alt="myContacts" />
+    </>
+  );
 }
