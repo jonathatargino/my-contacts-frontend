@@ -39,21 +39,23 @@ export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
     console.log(data);
   };
 
+  const existFieldErrors = Object.values(errors).length !== 0;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="mb-6 flex flex-col gap-4">
         <InputWrapper errorMessage={errors?.name?.message}>
-          <Input placeholder="Nome" {...register("name")} error={!!errors.name} autoComplete="off" />
+          <Input placeholder="Nome *" {...register("name")} error={!!errors.name} autoComplete="off" />
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.email?.message}>
-          <Input type="email" placeholder="E-mail" {...register("email")} error={!!errors.email} autoComplete="off" />
+          <Input type="email" placeholder="E-mail *" {...register("email")} error={!!errors.email} autoComplete="off" />
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.phone?.message}>
           <Input
             type="tel"
-            placeholder="Telefone"
+            placeholder="Telefone *"
             {...register("phone", { onChange: handlePhoneChange })}
             error={!!errors.phone}
             autoComplete="off"
@@ -62,14 +64,14 @@ export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.category?.message}>
-          <Select placeholder="Categoria" {...register("category")} error={!!errors.category}>
+          <Select placeholder="Categoria *" {...register("category")} error={!!errors.category}>
             <option value="1">Instagram</option>
             <option value="2">Facebook</option>
             <option value="3">LinkedIn</option>
           </Select>
         </InputWrapper>
       </div>
-      <Button type="submit" className="w-full">
+      <Button disabled={existFieldErrors} type="submit" className="w-full">
         {buttonLabel}
       </Button>
     </form>
