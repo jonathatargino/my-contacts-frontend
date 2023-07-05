@@ -5,6 +5,8 @@ import { IContact } from "@/provider/contact";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import formatPhone from "@/utils/phone/formatPhone";
+import unformatPhone from "@/utils/phone/unformatPhone";
 
 interface ContactsFormProps {
   buttonLabel: string;
@@ -16,7 +18,10 @@ export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
   const schema = z.object({
     name: z.string().nonempty({ message: "Este campo é obrigatório" }),
     email: z.string().nonempty({ message: "Este campo é obrigatório" }).email({ message: "Este email é inválido" }),
-    phone: z.string().nonempty({ message: "Este campo é obrigatório" }),
+    phone: z
+      .string()
+      .nonempty({ message: "Este campo é obrigatório" })
+      .transform((phoneNumber) => unformatPhone(phoneNumber)),
     category: z.string().nonempty({ message: "Este campo é obrigatório" }),
   });
 
@@ -25,6 +30,10 @@ export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<ContactsFormFields>({ resolver: zodResolver(schema) });
+
+  const handlePhoneChange = (e: any) => {
+    e.target.value = formatPhone(e.target.value);
+  };
 
   const onSubmit = (data: ContactsFormFields) => {
     console.log(data);
@@ -42,7 +51,14 @@ export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.phone?.message}>
-          <Input placeholder="Telefone" {...register("phone")} error={!!errors.phone} autoComplete="off" />
+          <Input
+            type="tel"
+            placeholder="Telefone"
+            {...register("phone", { onChange: handlePhoneChange })}
+            error={!!errors.phone}
+            autoComplete="off"
+            maxLength={15}
+          />
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.category?.message}>
