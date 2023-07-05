@@ -31,14 +31,14 @@ export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="mb-6 flex flex-col gap-4">
         <InputWrapper errorMessage={errors?.name?.message}>
           <Input placeholder="Nome" {...register("name")} error={!!errors.name} autoComplete="off" />
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.email?.message}>
-          <Input placeholder="E-mail" {...register("email")} error={!!errors.email} autoComplete="off" />
+          <Input type="email" placeholder="E-mail" {...register("email")} error={!!errors.email} autoComplete="off" />
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.phone?.message}>
