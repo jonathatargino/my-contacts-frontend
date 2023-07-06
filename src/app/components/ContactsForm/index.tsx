@@ -1,20 +1,30 @@
 "use client";
 
 import { Button, Input, InputWrapper, Select } from "@/app/components";
-import { IContact } from "@/provider/contact";
+import { IContact, IContactRequestBody } from "@/provider/contact";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import formatPhone from "@/utils/phone/formatPhone";
 import unformatPhone from "@/utils/phone/unformatPhone";
+import { useMutation } from "@tanstack/react-query";
+import { useFetch } from "@/hooks/useFetch";
+import { ICategory } from "@/provider/category";
 
 interface ContactsFormProps {
   buttonLabel: string;
+  categories: Array<ICategory>;
 }
 
-type ContactsFormFields = Omit<IContact, "id">;
+export default function ContactsForm({ buttonLabel, categories }: ContactsFormProps) {
+  const sendHttpRequest = useFetch<IContact>({ endpoint: "contacts", method: "POST" });
 
-export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
+  const mutation = useMutation({
+    mutationFn: sendHttpRequest<IContactRequestBody>,
+    onSuccess: () => console.log("DEU BOM"),
+    onError: () => console.log("DEU RUIM"),
+  });
+
   const schema = z.object({
     name: z.string().nonempty({ message: "Este campo é obrigatório" }),
     email: z.string().nonempty({ message: "Este campo é obrigatório" }).email({ message: "Este email é inválido" }),
@@ -22,21 +32,21 @@ export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
       .string()
       .nonempty({ message: "Este campo é obrigatório" })
       .transform((phoneNumber) => unformatPhone(phoneNumber)),
-    category: z.string().nonempty({ message: "Este campo é obrigatório" }),
+    category_id: z.string().nonempty({ message: "Este campo é obrigatório" }),
   });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ContactsFormFields>({ resolver: zodResolver(schema) });
+  } = useForm<IContactRequestBody>({ resolver: zodResolver(schema) });
 
   const handlePhoneChange = (e: any) => {
     e.target.value = formatPhone(e.target.value);
   };
 
-  const onSubmit = (data: ContactsFormFields) => {
-    console.log(data);
+  const onSubmit = (data: IContactRequestBody) => {
+    mutation.mutate(data);
   };
 
   const existFieldErrors = Object.values(errors).length !== 0;
@@ -63,11 +73,13 @@ export default function ContactsForm({ buttonLabel }: ContactsFormProps) {
           />
         </InputWrapper>
 
-        <InputWrapper errorMessage={errors?.category?.message}>
-          <Select placeholder="Categoria *" {...register("category")} error={!!errors.category}>
-            <option value="1">Instagram</option>
-            <option value="2">Facebook</option>
-            <option value="3">LinkedIn</option>
+        <InputWrapper errorMessage={errors?.category_id?.message}>
+          <Select placeholder="Categoria *" {...register("category_id")} error={!!errors.category_id}>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
           </Select>
         </InputWrapper>
       </div>
