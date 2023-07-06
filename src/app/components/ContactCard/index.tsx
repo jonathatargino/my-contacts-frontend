@@ -5,14 +5,14 @@ import Image from "next/image";
 import { pencilIcon, trashIcon } from "@/assets/images";
 import { IContact } from "@/provider/contact";
 
-export default function ContactCard({ id, name, category, email, phone }: IContact) {
+export default function ContactCard({ id, name, category_name, email, phone }: IContact) {
   return (
     <div className="flex items-center justify-between bg-white p-4 shadow-soft">
       <div>
         <div>
           <strong>{name}</strong>
           <span className="ml-2 rounded bg-primary-lighter p-1 text-xs font-bold uppercase text-primary-main">
-            {category}
+            {category_name}
           </span>
         </div>
 
