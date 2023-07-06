@@ -10,18 +10,30 @@ import unformatPhone from "@/utils/phone/unformatPhone";
 import { useMutation } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { ICategory } from "@/provider/category";
+import { useRouter } from "next/navigation";
 
 interface ContactsFormProps {
   buttonLabel: string;
   categories: Array<ICategory>;
+  contact?: IContact;
 }
 
-export default function ContactsForm({ buttonLabel, categories }: ContactsFormProps) {
-  const sendHttpRequest = useFetch<IContact>({ endpoint: "contacts", method: "POST" });
+export default function ContactsForm({ buttonLabel, categories, contact }: ContactsFormProps) {
+  const router = useRouter();
+
+  const editingContact = contact !== undefined;
+
+  const sendHttpRequest = useFetch<IContact>({
+    endpoint: editingContact ? `contacts/${contact.id}` : "contacts",
+    method: editingContact ? "PUT" : "POST",
+  });
 
   const mutation = useMutation({
     mutationFn: sendHttpRequest<IContactRequestBody>,
-    onSuccess: () => console.log("DEU BOM"),
+    onSuccess: () => {
+      router.push("/");
+      router.refresh();
+    },
     onError: () => console.log("DEU RUIM"),
   });
 
@@ -39,7 +51,17 @@ export default function ContactsForm({ buttonLabel, categories }: ContactsFormPr
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IContactRequestBody>({ resolver: zodResolver(schema) });
+  } = useForm<IContactRequestBody>({
+    resolver: zodResolver(schema),
+    defaultValues: editingContact
+      ? {
+          category_id: contact.category_id,
+          email: contact.email,
+          name: contact.name,
+          phone: formatPhone(contact.phone),
+        }
+      : undefined,
+  });
 
   const handlePhoneChange = (e: any) => {
     e.target.value = formatPhone(e.target.value);

@@ -9,13 +9,13 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ children, className, placeholder, error, ...props }, ref) => {
+  ({ children, className, placeholder, defaultValue = "", error, ...props }, ref) => {
     return (
       <select
         {...props}
         ref={ref}
         required
-        defaultValue={""}
+        defaultValue={defaultValue}
         className={twMerge(
           classNames(
             "h-[52px] appearance-none rounded border-2 border-white bg-white px-4 shadow-soft outline-none transition-all invalid:text-gray-200 focus:border-2 focus:border-primary-main",

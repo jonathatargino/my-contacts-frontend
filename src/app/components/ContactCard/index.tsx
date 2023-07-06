@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { pencilIcon, trashIcon } from "@/assets/images";
 import { IContact } from "@/provider/contact";
+import formatPhone from "@/utils/phone/formatPhone";
 
-export default function ContactCard({ id, name, category_name, email, phone }: IContact) {
+export default function ContactCard({ id, name, category_name, email, phone }: Omit<IContact, "category_id">) {
   return (
     <div className="flex items-center justify-between bg-white p-4 shadow-soft">
       <div>
@@ -17,7 +18,7 @@ export default function ContactCard({ id, name, category_name, email, phone }: I
         </div>
 
         <span className="block text-gray-200">{email}</span>
-        <span className="block text-gray-200">{phone}</span>
+        <span className="block text-gray-200">{formatPhone(phone)}</span>
       </div>
 
       <div className="flex gap-2">
