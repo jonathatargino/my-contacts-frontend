@@ -22,7 +22,7 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
   }, [isInDescendentOrder]);
 
   const filteredContacts = useMemo(
-    () => contacts.filter((contact) => RegExp(searchInputValue.toUpperCase()).test(contact.name.toUpperCase())),
+    () => contacts.filter((contact) => contact.name.toUpperCase().includes(searchInputValue.toUpperCase())),
     [searchInputValue, contacts],
   );
 
@@ -41,7 +41,7 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
 
       <header className="flex items-center justify-between">
         <strong className="text-2xl">
-          {contacts.length} {contacts.length === 1 ? "contato" : "contatos"}
+          {filteredContacts.length} {filteredContacts.length === 1 ? "contato" : "contatos"}
         </strong>
         <Link
           href="/add"
@@ -52,18 +52,18 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
       </header>
 
       <div>
-        <header className="justify-left mb-2">
-          <button className="flex items-center gap-2">
-            <span className="font-bold text-primary-main" onClick={() => toggleDescendentOrder()}>
-              Nome
-            </span>
-            <Image
-              src={arrowIcon}
-              alt={isInDescendentOrder ? "Ordenar crescentemente" : "Ordenar decrescentemente"}
-              className={classNames("transition-all", { "rotate-180": isInDescendentOrder })}
-            ></Image>
-          </button>
-        </header>
+        {filteredContacts.length > 0 ? (
+          <header className="justify-left mb-2">
+            <button className="flex items-center gap-2" onClick={() => toggleDescendentOrder()}>
+              <span className="font-bold text-primary-main">Nome</span>
+              <Image
+                src={arrowIcon}
+                alt={isInDescendentOrder ? "Ordenar crescentemente" : "Ordenar decrescentemente"}
+                className={classNames("transition-all", { "rotate-180": isInDescendentOrder })}
+              ></Image>
+            </button>
+          </header>
+        ) : null}
 
         <div className="flex flex-col gap-4">
           {filteredContacts.map((contact) => (
