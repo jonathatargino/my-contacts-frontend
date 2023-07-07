@@ -17,18 +17,16 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
   const [isInDescendentOrder, setDescendentOrder] = useState<boolean>(false);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
 
-  const contacts = useMemo(() => {
-    return isInDescendentOrder ? descendentOrderContacts : ascendentOrderContacts;
-  }, [isInDescendentOrder]);
+  const contacts = isInDescendentOrder ? descendentOrderContacts : ascendentOrderContacts;
 
   const filteredContacts = useMemo(
     () => contacts.filter((contact) => contact.name.toUpperCase().includes(searchInputValue.toUpperCase())),
     [searchInputValue, contacts],
   );
 
-  const toggleDescendentOrder = useCallback(() => {
+  function toggleDescendentOrder() {
     setDescendentOrder((prevState) => !prevState);
-  }, []);
+  }
 
   return (
     <div className="flex flex-col gap-8">
