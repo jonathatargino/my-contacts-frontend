@@ -6,8 +6,11 @@ import { useFetch } from "@/hooks/useFetch";
 import ContactsList from "./components/ContactsList";
 
 export default async function Home() {
-  const sendHttpRequest = useFetch<IContact[]>({ endpoint: "contacts", method: "GET" });
-  const contacts = await sendHttpRequest();
+  const getContacts = useFetch<IContact[]>({ endpoint: "contacts", method: "GET" });
+  const contacts = await getContacts();
 
-  return <ContactsList contacts={contacts} />;
+  const getDescendentOrderContacts = useFetch<IContact[]>({ endpoint: "contacts?order=desc", method: "GET" });
+  const descendentOrderContacts = await getDescendentOrderContacts();
+
+  return <ContactsList contacts={contacts} descendentOrderContacts={descendentOrderContacts} />;
 }
