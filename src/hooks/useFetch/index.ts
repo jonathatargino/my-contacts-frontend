@@ -1,30 +1,31 @@
-interface BaseProps {
+import APIError from "@/errors/APIError";
+
+interface UseFetchProps {
   endpoint: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
 }
 
-export function useFetch<T>({
-  endpoint,
-  method,
-}: BaseProps): <U>(body?: U | undefined) => Promise<T extends undefined ? undefined : T> {
-  const sendHttpRequest = async <U>(body?: U) => {
+export function useFetch<T>({ endpoint, method }: UseFetchProps): <U>(requestBody?: U) => Promise<T> {
+  const sendHttpRequest = async <U>(requestBody?: U) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`, {
       headers: { "Content-Type": "application/json" },
-      body: body ? JSON.stringify(body) : null,
+      body: requestBody ? JSON.stringify(requestBody) : null,
       method: method,
       cache: "no-cache",
     });
 
-    const text = await response.text();
+    let responseBody: any;
+    const contentType = response.headers.get("content-type");
 
-    if (!response.ok) {
-      const backendErrorMessage: string = JSON.parse(text).message;
-      throw new Error(backendErrorMessage ?? "Algo está errado");
+    if (contentType?.includes("application/json")) {
+      responseBody = await response.json();
     }
 
-    const data: T extends undefined ? undefined : T = text ? await JSON.parse(text) : undefined;
+    if (!response.ok) {
+      throw new APIError(response, responseBody);
+    }
 
-    return data;
+    return responseBody as T;
   };
 
   return sendHttpRequest;
