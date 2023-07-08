@@ -77,11 +77,24 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="mb-6 flex flex-col gap-4">
         <InputWrapper errorMessage={errors?.name?.message}>
-          <Input placeholder="Nome *" {...register("name")} error={!!errors.name} autoComplete="off" />
+          <Input
+            placeholder="Nome *"
+            {...register("name")}
+            error={!!errors.name}
+            autoComplete="off"
+            disabled={isLoading}
+          />
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.email?.message}>
-          <Input type="email" placeholder="E-mail *" {...register("email")} error={!!errors.email} autoComplete="off" />
+          <Input
+            type="email"
+            placeholder="E-mail *"
+            {...register("email")}
+            error={!!errors.email}
+            autoComplete="off"
+            disabled={isLoading}
+          />
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.phone?.message}>
@@ -92,11 +105,17 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
             error={!!errors.phone}
             autoComplete="off"
             maxLength={15}
+            disabled={isLoading}
           />
         </InputWrapper>
 
         <InputWrapper errorMessage={errors?.category_id?.message}>
-          <Select placeholder="Categoria *" {...register("category_id")} error={!!errors.category_id}>
+          <Select
+            placeholder="Categoria *"
+            {...register("category_id")}
+            error={!!errors.category_id}
+            disabled={isLoading}
+          >
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -105,7 +124,7 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
           </Select>
         </InputWrapper>
       </div>
-      <Button disabled={existFieldErrors || isLoading} type="submit" className="w-full">
+      <Button disabled={existFieldErrors} isLoading={isLoading} type="submit" className="w-full">
         {buttonLabel}
       </Button>
     </form>

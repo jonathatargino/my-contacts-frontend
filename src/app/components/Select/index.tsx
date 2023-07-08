@@ -18,7 +18,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         defaultValue={defaultValue}
         className={twMerge(
           classNames(
-            "h-[52px] appearance-none rounded border-2 border-white bg-white px-4 shadow-soft outline-none transition-all invalid:text-gray-200 focus:border-2 focus:border-primary-main",
+            `h-[52px] appearance-none rounded border-2 border-white bg-white px-4 shadow-soft outline-none transition-all
+            invalid:text-gray-200
+            focus:border-2 focus:border-primary-main
+            disabled:border-gray-200 disabled:bg-gray-100`,
             className,
             { "border-danger-main text-danger-main invalid:text-danger-main focus:border-danger-light": error },
           ),
