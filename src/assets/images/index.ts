@@ -5,3 +5,5 @@ export { default as trashIcon } from "./trash.svg";
 export { default as sadIcon } from "./sad.svg";
 export { default as emptyBoxIcon } from "./empty-box.svg";
 export { default as magnifierQuestionIcon } from "./magnifier-question.svg";
+export { default as checkCircleIcon } from "./check-circle.svg";
+export { default as XCircleIcon } from "./x-circle.svg";
