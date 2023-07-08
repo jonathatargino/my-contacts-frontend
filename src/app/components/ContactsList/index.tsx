@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { arrowIcon, emptyBoxIcon } from "@/assets/images";
+import { arrowIcon, emptyBoxIcon, magnifierQuestionIcon } from "@/assets/images";
 import ContactCard from "../ContactCard";
 import { IContact } from "@/provider/contact";
 import { useCallback, useMemo, useState } from "react";
@@ -63,6 +63,16 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
           </Link>
         </header>
       </div>
+
+      {filteredContacts.length === 0 && contacts.length > 0 ? (
+        <div className="flex items-start gap-6">
+          <Image src={magnifierQuestionIcon} alt="" />
+          <p className="text-gray-200 [word-break:break-word]">
+            Nenhum resultado foi encontrado para
+            <strong className="text-gray-400"> &quot;{searchInputValue}&quot;</strong>
+          </p>
+        </div>
+      ) : null}
 
       <div>
         {filteredContacts.length > 0 ? (
