@@ -28,7 +28,7 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
     method: editingContact ? "PUT" : "POST",
   });
 
-  const mutation = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: sendHttpRequest<IContactRequestBody>,
     onSuccess: () => {
       router.push("/");
@@ -68,7 +68,7 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
   };
 
   const onSubmit = (data: IContactRequestBody) => {
-    mutation.mutate(data);
+    mutate(data);
   };
 
   const existFieldErrors = Object.values(errors).length !== 0;
@@ -105,7 +105,7 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
           </Select>
         </InputWrapper>
       </div>
-      <Button disabled={existFieldErrors} type="submit" className="w-full">
+      <Button disabled={existFieldErrors || isLoading} type="submit" className="w-full">
         {buttonLabel}
       </Button>
     </form>
