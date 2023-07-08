@@ -7,10 +7,16 @@ interface UseFetchProps {
 
 export function useFetch<T>({ endpoint, method }: UseFetchProps): <U>(requestBody?: U) => Promise<T> {
   const sendHttpRequest = async <U>(requestBody?: U) => {
+    const headers = new Headers();
+
+    if (requestBody) {
+      headers.append("Content-Type", "application/json");
+    }
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`, {
-      headers: { "Content-Type": "application/json" },
+      headers,
       body: requestBody ? JSON.stringify(requestBody) : null,
-      method: method,
+      method,
       cache: "no-cache",
     });
 
