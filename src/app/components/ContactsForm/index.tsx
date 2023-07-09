@@ -11,6 +11,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { ICategory } from "@/provider/category";
 import { useRouter } from "next/navigation";
+import useToast from "@/hooks/useToast";
+import "@/lib/EventManager";
 
 interface ContactsFormProps {
   buttonLabel: string;
@@ -31,10 +33,13 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
   const { mutate, isLoading } = useMutation({
     mutationFn: sendHttpRequest<IContactRequestBody>,
     onSuccess: () => {
+      useToast({ type: "success", text: "Sucesso ao cadastrar um usuário" });
       router.push("/");
       router.refresh();
     },
-    onError: () => console.log("DEU RUIM"),
+    onError: () => {
+      useToast({ type: "danger", text: "Erro ao tentar cadastrar um usuário." });
+    },
   });
 
   const schema = z.object({
