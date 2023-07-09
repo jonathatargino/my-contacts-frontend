@@ -1,6 +1,5 @@
-import { ButtonHTMLAttributes } from "react";
-import Button from "../Button";
+import Button, { ButtonProps } from "../Button";
 
-export default function ModalAction({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
+export default function ModalAction({ children, ...props }: ButtonProps) {
   return <Button {...props}>{children}</Button>;
 }

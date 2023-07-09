@@ -6,7 +6,11 @@ import { pencilIcon, trashIcon } from "@/assets/images";
 import { IContact } from "@/provider/contact";
 import formatPhone from "@/utils/phone/formatPhone";
 
-export default function ContactCard({ id, name, category_name, email, phone }: Omit<IContact, "category_id">) {
+interface ContactCardProps extends Omit<IContact, "category_id"> {
+  onTrashIconClick: (contact: Omit<IContact, "category_id">) => void;
+}
+
+export default function ContactCard({ id, name, category_name, email, phone, onTrashIconClick }: ContactCardProps) {
   return (
     <div className="flex items-center justify-between bg-white p-4 shadow-soft">
       <div>
@@ -27,7 +31,11 @@ export default function ContactCard({ id, name, category_name, email, phone }: O
         </Link>
 
         <button>
-          <Image src={trashIcon} alt="Deletar contato" />
+          <Image
+            src={trashIcon}
+            alt="Deletar contato"
+            onClick={() => onTrashIconClick({ id, name, category_name, email, phone })}
+          />
         </button>
       </div>
     </div>

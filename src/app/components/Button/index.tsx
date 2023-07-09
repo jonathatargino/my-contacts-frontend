@@ -4,7 +4,7 @@ import { ButtonHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 import LoadingDots from "../LoadingDots";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 
