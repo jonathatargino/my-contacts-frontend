@@ -14,8 +14,8 @@ export default function ToastContainer() {
   }, []);
 
   useEffect(() => {
-    function handleAddToast(payload: any) {
-      const { text, type } = payload as Omit<Toast, "id">;
+    function handleAddToast(payload: Omit<Toast, "id">) {
+      const { text, type } = payload;
       setToasts((prevState) => [...prevState, { id: Math.random(), text, type }]);
     }
 
