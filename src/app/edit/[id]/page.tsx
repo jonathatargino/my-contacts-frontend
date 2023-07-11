@@ -3,19 +3,18 @@ import { ContactsForm } from "@/app/components";
 import { ICategory } from "@/provider/category";
 import { useFetch } from "@/hooks/useFetch";
 import { IContact } from "@/provider/contact";
+import CategoryService from "@/services/CategoryService";
+import ContactService from "@/services/ContactService";
 
 interface EditContactPageProps {
   params: {
-    id: number;
+    id: string;
   };
 }
 
 export default async function EditContactPage({ params: { id } }: EditContactPageProps) {
-  const getCategories = useFetch<ICategory[]>({ endpoint: "categories", method: "GET" });
-  const categories = await getCategories();
-
-  const getContactById = useFetch<IContact>({ endpoint: `contacts/${id}`, method: "GET" });
-  const contact = await getContactById();
+  const categories = await CategoryService.getAll();
+  const contact = await ContactService.getById(id);
 
   return (
     <div>

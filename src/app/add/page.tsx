@@ -1,11 +1,9 @@
-import { useFetch } from "@/hooks/useFetch";
 import { ContactsForm } from "../components";
 import FormHeader from "@/app/components/FormHeader";
-import { ICategory } from "@/provider/category";
+import CategoryService from "@/services/CategoryService";
 
 export default async function AddContactPage() {
-  const sendHttpRequest = useFetch<ICategory[]>({ endpoint: "categories", method: "GET" });
-  const categories = await sendHttpRequest();
+  const categories = await CategoryService.getAll();
 
   return (
     <div>
