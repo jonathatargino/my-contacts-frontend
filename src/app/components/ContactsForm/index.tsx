@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { ChangeEvent } from "react";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -70,7 +71,7 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
       : undefined,
   });
 
-  const handlePhoneChange = (e: any) => {
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.value = formatPhone(e.target.value);
   };
 
