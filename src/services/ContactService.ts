@@ -26,7 +26,7 @@ class ContactService {
   }
 
   updateById(id: string, body: IContactRequestBody) {
-    return this.httpClient.post<IContactRequestBody, IContact>(`${this.baseEndpoint}/${id}`, {
+    return this.httpClient.put<IContactRequestBody, IContact>(`${this.baseEndpoint}/${id}`, {
       requestBody: body,
     });
   }

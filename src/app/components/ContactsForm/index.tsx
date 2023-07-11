@@ -8,11 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import formatPhone from "@/utils/phone/formatPhone";
 import unformatPhone from "@/utils/phone/unformatPhone";
 import { useMutation } from "@tanstack/react-query";
-import { useFetch } from "@/hooks/useFetch";
 import { ICategory } from "@/provider/category";
 import { useRouter } from "next/navigation";
 import useToast from "@/hooks/useToast";
 import "@/lib/EventManager";
+import ContactService from "@/services/ContactService";
 
 interface ContactsFormProps {
   buttonLabel: string;
@@ -25,13 +25,13 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
 
   const editingContact = contact !== undefined;
 
-  const sendHttpRequest = useFetch<IContact>({
-    endpoint: editingContact ? `contacts/${contact.id}` : "contacts",
-    method: editingContact ? "PUT" : "POST",
-  });
-
   const { mutate, isLoading } = useMutation({
-    mutationFn: sendHttpRequest<IContactRequestBody>,
+    mutationFn: (data: IContactRequestBody) => {
+      if (editingContact) {
+        return ContactService.updateById(contact.id, data);
+      }
+      return ContactService.create(data);
+    },
     onSuccess: () => {
       useToast({ type: "success", text: "Sucesso ao cadastrar um usuário" });
       router.push("/");
