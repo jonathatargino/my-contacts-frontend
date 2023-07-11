@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
+
 import { pencilIcon, trashIcon } from "@/assets/images";
-import { IContact } from "@/provider/contact";
-import formatPhone from "@/utils/phone/formatPhone";
+import { IContact } from "@/types";
+import { formatPhone } from "@/utils";
 
 interface ContactCardProps extends Omit<IContact, "category_id"> {
   onTrashIconClick: (contact: Omit<IContact, "category_id">) => void;

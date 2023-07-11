@@ -1,18 +1,18 @@
 "use client";
 
-import { Button, Input, InputWrapper, Select } from "@/app/components";
-import { IContact, IContactRequestBody } from "@/provider/contact";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import formatPhone from "@/utils/phone/formatPhone";
-import unformatPhone from "@/utils/phone/unformatPhone";
+import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { ICategory } from "@/provider/category";
-import { useRouter } from "next/navigation";
+
+import { Button, Input, InputWrapper, Select } from "@/app/components";
+import { IContact, IContactRequestBody, ICategory } from "@/types";
+import { ContactService } from "@/services";
+import { unformatPhone, formatPhone } from "@/utils";
 import useToast from "@/hooks/useToast";
-import "@/lib/EventManager";
-import ContactService from "@/services/ContactService";
+import APIError from "@/errors/APIError";
 
 interface ContactsFormProps {
   buttonLabel: string;
@@ -37,8 +37,10 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
       router.push("/");
       router.refresh();
     },
-    onError: () => {
-      useToast({ type: "danger", text: "Erro ao tentar cadastrar um usuário." });
+    onError: (error) => {
+      if (error instanceof APIError) {
+        return useToast({ type: "danger", text: error.message });
+      }
     },
   });
 

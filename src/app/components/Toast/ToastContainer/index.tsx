@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import ToastMessage from "../ToastMessage";
-import { Toast } from "@/provider/toast";
+
+import { ToastMessage } from "@/app/components";
+import { Toast } from "@/types";
 import { toastEventManager } from "@/hooks/useToast";
 
 export default function ToastContainer() {

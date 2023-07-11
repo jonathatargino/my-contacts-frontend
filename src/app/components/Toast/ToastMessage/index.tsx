@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
+import classNames from "classnames";
 
 import { checkCircleIcon, XCircleIcon } from "@/assets/images";
-import classNames from "classnames";
-import { Toast, ToastType } from "@/provider/toast";
-import { useEffect } from "react";
+import { Toast, ToastType } from "@/types";
 
 interface ToastMessageProps extends Toast {
   onRemoveMessage: (id: number) => void;

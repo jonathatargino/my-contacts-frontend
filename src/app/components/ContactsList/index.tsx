@@ -1,19 +1,19 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { arrowIcon, emptyBoxIcon, magnifierQuestionIcon } from "@/assets/images";
-import ContactCard from "../ContactCard";
-import { IContact } from "@/provider/contact";
-import { useCallback, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
-import Modal from "../Modal";
-import Button from "../Button";
 import { useMutation } from "@tanstack/react-query";
-import { useFetch } from "@/hooks/useFetch";
+
+import { arrowIcon, emptyBoxIcon, magnifierQuestionIcon } from "@/assets/images";
+import { ContactCard, Modal } from "@/app/components";
+import { ContactService } from "@/services";
+import { IContact } from "@/types";
 import useToast from "@/hooks/useToast";
-import { useRouter } from "next/navigation";
 
 interface ContactsListProps {
   ascendentOrderContacts: Array<IContact>;
@@ -28,8 +28,6 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
 
   const router = useRouter();
 
-  const deleteContact = useFetch<void>({ method: "DELETE", endpoint: `contacts/${contactBeingDeleted?.id}` });
-
   const contacts = isInDescendentOrder ? descendentOrderContacts : ascendentOrderContacts;
   const isContactListNotEmpty = contacts.length > 0;
 
@@ -39,7 +37,7 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
   );
 
   const deleteMutation = useMutation({
-    mutationFn: deleteContact,
+    mutationFn: () => ContactService.deleteById(contactBeingDeleted?.id as string),
     onSuccess: () => {
       setIsDeleteModalVisible(false);
       setContactBeingDeleted(null);
