@@ -1,4 +1,4 @@
-import { ICategory } from "@/provider/category";
+import { ICategory } from "@/types";
 import HttpClient from "./utils/HttpClient";
 
 class CategoryService {

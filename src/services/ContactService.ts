@@ -1,4 +1,4 @@
-import { IContact, IContactRequestBody } from "@/provider/contact";
+import { IContact, IContactRequestBody } from "@/types";
 import HttpClient from "./utils/HttpClient";
 
 class ContactService {
