@@ -1,5 +1,5 @@
-import ContactsList from "./components/ContactsList";
-import ContactService from "@/services/ContactService";
+import { ContactsList } from "@/app/components";
+import { ContactService } from "@/services";
 
 export default async function Home() {
   const ascendentOrderContacts = await ContactService.getAll();

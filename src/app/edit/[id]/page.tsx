@@ -1,10 +1,5 @@
-import FormHeader from "@/app/components/FormHeader";
-import { ContactsForm } from "@/app/components";
-import { ICategory } from "@/provider/category";
-import { useFetch } from "@/hooks/useFetch";
-import { IContact } from "@/provider/contact";
-import CategoryService from "@/services/CategoryService";
-import ContactService from "@/services/ContactService";
+import { ContactsForm, FormHeader } from "@/app/components";
+import { CategoryService, ContactService } from "@/services";
 
 interface EditContactPageProps {
   params: {

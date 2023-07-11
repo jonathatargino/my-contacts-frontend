@@ -1,4 +1,4 @@
-import { Toast } from "@/provider/toast";
+import { Toast } from "@/types";
 import EventManager from "@/lib/EventManager";
 
 type ToastEvent = "addtoast";

@@ -1,6 +1,5 @@
-import { ContactsForm } from "../components";
-import FormHeader from "@/app/components/FormHeader";
-import CategoryService from "@/services/CategoryService";
+import { ContactsForm, FormHeader } from "@/app/components";
+import { CategoryService } from "@/services";
 
 export default async function AddContactPage() {
   const categories = await CategoryService.getAll();

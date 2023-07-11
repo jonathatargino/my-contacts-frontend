@@ -1,10 +1,9 @@
 import Image from "next/image";
-
 import { Sora } from "next/font/google";
 import "./globals.css";
+
 import { logoIcon } from "@/assets/images";
-import Providers from "./components/Providers";
-import ToastContainer from "./components/Toast/ToastContainer";
+import { Providers, ToastContainer } from "@/app/components";
 
 const sora = Sora({
   weight: ["400", "700"],
