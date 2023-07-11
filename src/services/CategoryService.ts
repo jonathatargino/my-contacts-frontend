@@ -1,4 +1,4 @@
-import { ICategory } from "@/types";
+import { ICategory, ICategoryRequestBody } from "@/types";
 import HttpClient from "./utils/HttpClient";
 
 class CategoryService {
@@ -17,6 +17,20 @@ class CategoryService {
 
   getById(id: string) {
     return this.httpClient.get<ICategory>(`${this.baseEndpoint}/${id}`);
+  }
+
+  create(body: ICategoryRequestBody) {
+    return this.httpClient.post<ICategoryRequestBody, ICategory>(this.baseEndpoint, {
+      requestBody: body,
+    });
+  }
+
+  updateById(id: string, body: ICategoryRequestBody) {
+    return this.httpClient.put<ICategoryRequestBody, ICategory>(`${this.baseEndpoint}/${id}`, { requestBody: body });
+  }
+
+  deleteById(id: string) {
+    return this.httpClient.delete(`${this.baseEndpoint}/${id}`);
   }
 }
 
