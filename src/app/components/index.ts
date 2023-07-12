@@ -9,6 +9,7 @@ export { default as ToastMessage } from "@/app/components/Toast/ToastMessage";
 
 export { default as Providers } from "@/app/components/Providers";
 export { default as LoadingDots } from "@/app/components/LoadingDots";
+export { default as Switch } from "@/app/components/Switch";
 
 export { default as ContactCard } from "@/app/components/ContactCard";
 export { default as ContactsList } from "@/app/components/ContactsList";
