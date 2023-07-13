@@ -33,10 +33,15 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
       }
       return ContactService.create(data);
     },
-    onSuccess: () => {
-      useToast({ type: "success", text: "Sucesso ao cadastrar um usuário" });
-      router.push("/");
-      router.refresh();
+    onSuccess: (data: IContact) => {
+      if (editingContact) {
+        router.push("/contacts");
+        router.refresh();
+        return useToast({ type: "success", text: `Sucesso ao editar o contato ${data.name}` });
+      }
+
+      useToast({ type: "success", text: `Sucesso ao cadastrar o contato ${data.name}` });
+      reset();
     },
     onError: (error) => {
       if (error instanceof APIError) {
@@ -58,6 +63,7 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IContactRequestBody>({
     resolver: zodResolver(schema),
