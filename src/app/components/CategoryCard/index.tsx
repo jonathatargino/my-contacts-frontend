@@ -1,24 +1,29 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { pencilIcon, trashIcon } from "@/assets/images";
 import { ICategory } from "@/types";
+import { usePathname } from "next/navigation";
 
 interface CategoryCardProps {
-  category: ICategory;
+  data: ICategory;
   onTrashIconClick: ({ id, name }: ICategory) => void;
 }
 
-export default function CategoryCard({ category, onTrashIconClick }: CategoryCardProps) {
+export default function CategoryCard({ data, onTrashIconClick }: CategoryCardProps) {
+  const pathName = usePathname();
+
   return (
     <div className="flex items-center justify-between bg-white p-4 shadow-soft">
-      <strong>{category.name}</strong>
+      <strong>{data.name}</strong>
       <div className="flex gap-2">
-        <Link href={`/edit/${category.id}`}>
+        <Link href={`${pathName}/${data.id}`}>
           <Image src={pencilIcon} alt="Editar contato" />
         </Link>
 
-        <button>
-          <Image src={trashIcon} alt="Deletar contato" onClick={() => onTrashIconClick} />
+        <button onClick={() => onTrashIconClick(data)}>
+          <Image src={trashIcon} alt="Deletar contato" />
         </button>
       </div>
     </div>
