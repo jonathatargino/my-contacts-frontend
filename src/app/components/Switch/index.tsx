@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import SwitchLink, { MyContactsRoute } from "./SwitchLink";
+import { usePathname } from "next/navigation";
 
 export default function Switch() {
-  const [selectedRoute, setSelectedRoute] = useState<MyContactsRoute>("contacts");
+  const pathName = usePathname().slice(1);
+  const [selectedRoute, setSelectedRoute] = useState<MyContactsRoute>(pathName as MyContactsRoute);
 
   function handleSwitchLinkClick(route: MyContactsRoute) {
     setSelectedRoute(route);
