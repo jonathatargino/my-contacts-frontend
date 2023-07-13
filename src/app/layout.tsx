@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${sora.className} mx-auto w-full max-w-[500px] bg-app-bg px-4 py-16 text-gray-900`}>
         <Providers>
           <ToastContainer />
-          <Image src={logoIcon} alt="myContacts" className="mx-auto mb-12" />
+          <Image src={logoIcon} alt="myContacts" className="mx-auto" />
           {children}
         </Providers>
       </body>
