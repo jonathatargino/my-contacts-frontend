@@ -24,7 +24,7 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
   const [isInDescendentOrder, setDescendentOrder] = useState<boolean>(false);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState<boolean>(false);
-  const [contactBeingDeleted, setContactBeingDeleted] = useState<Omit<IContact, "category_id"> | null>(null);
+  const [contactBeingDeleted, setContactBeingDeleted] = useState<IContact | null>(null);
 
   const router = useRouter();
 
@@ -55,7 +55,7 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
     setDescendentOrder((prevState) => !prevState);
   }
 
-  function handleTrashIconClick(contact: Omit<IContact, "category_id">) {
+  function handleTrashIconClick(contact: IContact) {
     setContactBeingDeleted(contact);
     setIsDeleteModalVisible(true);
   }
@@ -154,15 +154,7 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
         {isContactListNotEmpty ? (
           <div className="flex flex-col gap-4">
             {filteredContacts.map((contact) => (
-              <ContactCard
-                key={contact.id}
-                id={contact.id}
-                email={contact.email}
-                category_name={contact.category_name}
-                name={contact.name}
-                phone={contact.phone}
-                onTrashIconClick={handleTrashIconClick}
-              />
+              <ContactCard key={contact.id} contact={contact} onTrashIconClick={handleTrashIconClick} />
             ))}
           </div>
         ) : (
