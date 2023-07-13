@@ -2,7 +2,6 @@
 
 import { IContact } from "@/types";
 import List from "../List";
-import { ContactService } from "@/services";
 import ContactCard from "../ContactCard";
 
 interface ContactsListProps {
@@ -16,7 +15,6 @@ export default function ContactsList({ ascendentOrderContacts, descendentOrderCo
       Card={ContactCard}
       ascendentOrderItems={ascendentOrderContacts}
       descendentOrderItems={descendentOrderContacts}
-      deleteFn={ContactService.deleteById}
       CardListStyles="flex flex-col gap-4"
     />
   );

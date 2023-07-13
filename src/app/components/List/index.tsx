@@ -8,11 +8,11 @@ import Image from "next/image";
 import classNames from "classnames";
 import Link from "next/link";
 import { arrowIcon, emptyBoxIcon, magnifierQuestionIcon } from "@/assets/images";
+import { CategoryService, ContactService } from "@/services";
 
 interface ListProps {
   descendentOrderItems: Array<any>;
   ascendentOrderItems: Array<any>;
-  deleteFn: (id: string) => Promise<void>;
   Card: React.FC<{ data: any; onTrashIconClick: (item: any) => void }>;
   CardListStyles: string;
 }
@@ -22,6 +22,8 @@ export default function List({ Card, ascendentOrderItems, descendentOrderItems, 
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState<boolean>(false);
   const [itemBeingDeleted, setItemBeingDeleted] = useState<any>(null);
+
+  console.log(deleteFn);
 
   const router = useRouter();
   const pathName = usePathname();
@@ -35,7 +37,13 @@ export default function List({ Card, ascendentOrderItems, descendentOrderItems, 
   );
 
   const deleteMutation = useMutation({
-    mutationFn: () => deleteFn(itemBeingDeleted?.id as string),
+    mutationFn: () => {
+      if (pathName === "/contacts") {
+        return ContactService.deleteById(itemBeingDeleted?.id as string);
+      }
+
+      return CategoryService.deleteById(itemBeingDeleted?.id as string);
+    },
     onSuccess: () => {
       setIsDeleteModalVisible(false);
       setItemBeingDeleted(null);
