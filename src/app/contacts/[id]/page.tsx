@@ -12,7 +12,7 @@ export default async function EditContactPage({ params: { id } }: EditContactPag
   const contact = await ContactService.getById(id);
 
   return (
-    <div>
+    <div className="mt-12">
       <FormHeader title={`Editar ${contact.name}`} />
       <ContactsForm categories={categories} contact={contact} buttonLabel="Salvar alterações" />
     </div>
