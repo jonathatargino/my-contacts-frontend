@@ -10,11 +10,13 @@ interface FormHeaderProps {
 }
 
 export default function FormHeader({ title }: FormHeaderProps) {
-  const backPathName = usePathname().replace("/add", "");
+  const splittedPathName = usePathname().split("/");
+  const previousPathName = `/${splittedPathName[1]}`;
+  console.log(previousPathName);
 
   return (
     <header>
-      <Link href={backPathName} className="mb-2 flex gap-2">
+      <Link href={previousPathName} className="mb-2 flex gap-2">
         <Image src={arrowIcon} alt="" className="-rotate-90" />
         <span className="font-bold text-primary-main">Voltar</span>
       </Link>
