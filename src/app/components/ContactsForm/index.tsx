@@ -47,6 +47,11 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
       if (error instanceof APIError) {
         return useToast({ type: "danger", text: error.message });
       }
+
+      if (editingContact) {
+        return useToast({ type: "danger", text: "Erro ao renomear o contato" });
+      }
+      useToast({ type: "danger", text: "Erro ao criar uma categoria" });
     },
   });
 

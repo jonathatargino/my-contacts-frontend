@@ -1,11 +1,13 @@
 "use client";
 
 import { Button, Input, InputWrapper } from "@/app/components";
+import APIError from "@/errors/APIError";
 import useToast from "@/hooks/useToast";
 import { CategoryService } from "@/services";
 import { ICategory, ICategoryRequestBody } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -14,6 +16,9 @@ interface CategoriesFormProps {
 }
 
 export default function CategoriesForm({ category }: CategoriesFormProps) {
+  const router = useRouter();
+  const editingCategory = category !== undefined;
+
   const schema = z.object({
     name: z.string().nonempty({ message: "Este campo é obrigatório" }),
   });
@@ -30,22 +35,28 @@ export default function CategoriesForm({ category }: CategoriesFormProps) {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: (data: ICategoryRequestBody) => {
-      if (category) {
+      if (editingCategory) {
         return CategoryService.updateById(category.id, data);
       }
 
       return CategoryService.create(data);
     },
     onSuccess: (data: ICategory) => {
-      if (category) {
+      if (editingCategory) {
+        router.push("/categories");
+        router.refresh();
         return useToast({ type: "success", text: `Sucesso ao renomear a categoria ${data.name}` });
       }
       useToast({ type: "success", text: `Sucesso ao criar a categoria ${data.name}` });
       reset();
     },
-    onError: () => {
-      if (category) {
-        return useToast({ type: "danger", text: "Erro ao renomear uma categoria" });
+    onError: (error) => {
+      if (error instanceof APIError) {
+        return useToast({ type: "danger", text: error.message });
+      }
+
+      if (editingCategory) {
+        return useToast({ type: "danger", text: "Erro ao renomear a categoria" });
       }
       useToast({ type: "danger", text: "Erro ao criar uma categoria" });
     },
