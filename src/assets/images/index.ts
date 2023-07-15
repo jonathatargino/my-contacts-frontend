@@ -7,3 +7,5 @@ export { default as emptyBoxIcon } from "./empty-box.svg";
 export { default as magnifierQuestionIcon } from "./magnifier-question.svg";
 export { default as checkCircleIcon } from "./check-circle.svg";
 export { default as XCircleIcon } from "./x-circle.svg";
+export { default as onlineManagementIcon } from "./online-management.svg";
+export { default as googleLogo } from "./google-logo.svg";
