@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { getCookie } from "cookies-next";
 import { ChangeEvent } from "react";
 
 import { z } from "zod";
@@ -22,6 +23,7 @@ interface ContactsFormProps {
 }
 
 export default function ContactsForm({ buttonLabel, categories, contact }: ContactsFormProps) {
+  const authToken = getCookie("authToken")?.valueOf() as string;
   const router = useRouter();
 
   const editingContact = contact !== undefined;
@@ -29,9 +31,9 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
   const { mutate, isLoading } = useMutation({
     mutationFn: (data: IContactRequestBody) => {
       if (editingContact) {
-        return ContactService.updateById(contact.id, data);
+        return ContactService.updateById({ id: contact.id, body: data, authToken });
       }
-      return ContactService.create(data);
+      return ContactService.create({ body: data, authToken });
     },
     onSuccess: (data: IContact) => {
       if (editingContact) {

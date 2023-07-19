@@ -7,6 +7,7 @@ import { CategoryService } from "@/services";
 import { ICategory, ICategoryRequestBody } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,6 +17,8 @@ interface CategoriesFormProps {
 }
 
 export default function CategoriesForm({ category }: CategoriesFormProps) {
+  const authToken = getCookie("authToken")?.valueOf() as string;
+
   const router = useRouter();
   const editingCategory = category !== undefined;
 
@@ -36,10 +39,10 @@ export default function CategoriesForm({ category }: CategoriesFormProps) {
   const { mutate, isLoading } = useMutation({
     mutationFn: (data: ICategoryRequestBody) => {
       if (editingCategory) {
-        return CategoryService.updateById(category.id, data);
+        return CategoryService.updateById({ id: category.id, body: data, authToken });
       }
 
-      return CategoryService.create(data);
+      return CategoryService.create({ body: data, authToken });
     },
     onSuccess: (data: ICategory) => {
       if (editingCategory) {

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import Switch from "../components/Switch";
+import { Switch } from "@/app/components";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

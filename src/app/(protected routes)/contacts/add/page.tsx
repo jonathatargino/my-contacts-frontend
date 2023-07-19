@@ -1,8 +1,11 @@
 import { ContactsForm, FormHeader } from "@/app/components";
 import { CategoryService } from "@/services";
+import { cookies } from "next/headers";
 
 export default async function AddContactPage() {
-  const categories = await CategoryService.getAll();
+  const authToken = cookies().get("authToken")?.value as string;
+
+  const categories = await CategoryService.getAll({ authToken });
 
   return (
     <div className="mt-12">

@@ -1,9 +1,12 @@
 import CategoriesList from "@/app/components/CategoriesList";
 import { CategoryService } from "@/services";
+import { cookies } from "next/headers";
 
 export default async function CategoriesPage() {
-  const ascendentOrderCategories = await CategoryService.getAll();
-  const descendentOrderCategories = await CategoryService.getAll("desc");
+  const authToken = cookies().get("authToken")?.value as string;
+
+  const ascendentOrderCategories = await CategoryService.getAll({ authToken });
+  const descendentOrderCategories = await CategoryService.getAll({ order: "desc", authToken });
 
   return (
     <CategoriesList
