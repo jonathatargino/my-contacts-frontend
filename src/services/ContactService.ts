@@ -11,28 +11,36 @@ class ContactService {
     this.baseEndpoint = "/contacts";
   }
 
-  getAll(order: "asc" | "desc" = "asc") {
-    return this.httpClient.get<IContact[]>(`${this.baseEndpoint}?order=${order}`);
+  getAll(params: { order?: "asc" | "desc"; authToken: string }) {
+    return this.httpClient.get<IContact[]>(`${this.baseEndpoint}?order=${params.order || "asc"}`, {
+      headers: { Authorization: params.authToken },
+    });
   }
 
-  getById(id: string) {
-    return this.httpClient.get<IContact>(`${this.baseEndpoint}/${id}`);
+  getById(params: { id: string; authToken: string }) {
+    return this.httpClient.get<IContact>(`${this.baseEndpoint}/${params.id}`, {
+      headers: { Authorization: params.authToken },
+    });
   }
 
-  create(body: IContactRequestBody) {
+  create(params: { body: IContactRequestBody; authToken: string }) {
     return this.httpClient.post<IContactRequestBody, IContact>(this.baseEndpoint, {
-      requestBody: body,
+      requestBody: params.body,
+      headers: { Authorization: params.authToken },
     });
   }
 
-  updateById(id: string, body: IContactRequestBody) {
-    return this.httpClient.put<IContactRequestBody, IContact>(`${this.baseEndpoint}/${id}`, {
-      requestBody: body,
+  updateById(params: { id: string; body: IContactRequestBody; authToken: string }) {
+    return this.httpClient.put<IContactRequestBody, IContact>(`${this.baseEndpoint}/${params.id}`, {
+      requestBody: params.body,
+      headers: { Authorization: params.authToken },
     });
   }
 
-  deleteById(id: string) {
-    return this.httpClient.delete(`${this.baseEndpoint}/${id}`);
+  deleteById(params: { id: string; authToken: string }) {
+    return this.httpClient.delete(`${this.baseEndpoint}/${params.id}`, {
+      headers: { Authorization: params.authToken },
+    });
   }
 }
 

@@ -11,26 +11,36 @@ class CategoryService {
     this.baseEndpoint = "/categories";
   }
 
-  getAll(order: "asc" | "desc" = "asc") {
-    return this.httpClient.get<ICategory[]>(`${this.baseEndpoint}?order=${order}`);
-  }
-
-  getById(id: string) {
-    return this.httpClient.get<ICategory>(`${this.baseEndpoint}/${id}`);
-  }
-
-  create(body: ICategoryRequestBody) {
-    return this.httpClient.post<ICategoryRequestBody, ICategory>(this.baseEndpoint, {
-      requestBody: body,
+  getAll(params: { order?: "asc" | "desc"; authToken: string }) {
+    return this.httpClient.get<ICategory[]>(`${this.baseEndpoint}?order=${params.order || "asc"}`, {
+      headers: { Authorization: params.authToken },
     });
   }
 
-  updateById(id: string, body: ICategoryRequestBody) {
-    return this.httpClient.put<ICategoryRequestBody, ICategory>(`${this.baseEndpoint}/${id}`, { requestBody: body });
+  getById(params: { id: string; authToken: string }) {
+    return this.httpClient.get<ICategory>(`${this.baseEndpoint}/${params.id}`, {
+      headers: { Authorization: params.authToken },
+    });
   }
 
-  deleteById(id: string) {
-    return this.httpClient.delete(`${this.baseEndpoint}/${id}`);
+  create(params: { body: ICategoryRequestBody; authToken: string }) {
+    return this.httpClient.post<ICategoryRequestBody, ICategory>(this.baseEndpoint, {
+      requestBody: params.body,
+      headers: { Authorization: params.authToken },
+    });
+  }
+
+  updateById(params: { id: string; body: ICategoryRequestBody; authToken: string }) {
+    return this.httpClient.put<ICategoryRequestBody, ICategory>(`${this.baseEndpoint}/${params.id}`, {
+      requestBody: params.body,
+      headers: { Authorization: params.authToken },
+    });
+  }
+
+  deleteById(params: { id: string; authToken: string }) {
+    return this.httpClient.delete(`${this.baseEndpoint}/${params.id}`, {
+      headers: { Authorization: params.authToken },
+    });
   }
 }
 
