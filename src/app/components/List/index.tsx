@@ -1,3 +1,5 @@
+"use client";
+
 import useToast from "@/hooks/useToast";
 import { useMutation } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,6 +11,7 @@ import classNames from "classnames";
 import Link from "next/link";
 import { arrowIcon, emptyBoxIcon, magnifierQuestionIcon } from "@/assets/images";
 import { CategoryService, ContactService } from "@/services";
+import { getCookie } from "cookies-next";
 
 interface ListProps {
   descendentOrderItems: Array<any>;
@@ -17,13 +20,13 @@ interface ListProps {
   CardListStyles: string;
 }
 
-export default function List({ Card, ascendentOrderItems, descendentOrderItems, deleteFn, CardListStyles }: ListProps) {
+export default function List({ Card, ascendentOrderItems, descendentOrderItems, CardListStyles }: ListProps) {
+  const authToken = getCookie("authToken") as string;
+
   const [isInDescendentOrder, setDescendentOrder] = useState<boolean>(false);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState<boolean>(false);
   const [itemBeingDeleted, setItemBeingDeleted] = useState<any>(null);
-
-  console.log(deleteFn);
 
   const router = useRouter();
   const pathName = usePathname();
@@ -39,10 +42,16 @@ export default function List({ Card, ascendentOrderItems, descendentOrderItems, 
   const deleteMutation = useMutation({
     mutationFn: () => {
       if (pathName === "/contacts") {
-        return ContactService.deleteById(itemBeingDeleted?.id as string);
+        return ContactService.deleteById({
+          id: itemBeingDeleted?.id as string,
+          authToken,
+        });
       }
 
-      return CategoryService.deleteById(itemBeingDeleted?.id as string);
+      return CategoryService.deleteById({
+        id: itemBeingDeleted?.id as string,
+        authToken,
+      });
     },
     onSuccess: () => {
       setIsDeleteModalVisible(false);
