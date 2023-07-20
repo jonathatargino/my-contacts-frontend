@@ -136,7 +136,7 @@ export default function List({ Card, ascendentOrderItems, descendentOrderItems, 
           )}
         >
           {isItemListNotEmpty ? (
-            <strong className="text-2xl">
+            <strong className="text-xl sm:text-2xl">
               {filteredItems.length}{" "}
               {pathName === "/contacts"
                 ? filteredItems.length === 1
@@ -150,7 +150,7 @@ export default function List({ Card, ascendentOrderItems, descendentOrderItems, 
 
           <Link
             href={`${pathName}/add`}
-            className="rounded border-2 border-primary-main px-4 py-3 font-bold text-primary-main transition-colors hover:bg-primary-main hover:text-white"
+            className="rounded border-2 border-primary-main px-4 py-3 text-sm font-bold text-primary-main transition-colors hover:bg-primary-main hover:text-white sm:text-base"
           >
             {pathName === "/contacts" ? "Novo contato" : "Nova categoria"}
           </Link>
