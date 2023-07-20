@@ -17,8 +17,8 @@ export default function ContactCard({ data, onTrashIconClick }: ContactCardProps
   const pathName = usePathname();
 
   return (
-    <div className="flex items-center justify-between bg-white p-4 shadow-soft">
-      <div>
+    <div className="flex items-center justify-between bg-white p-4 shadow-soft [word-wrap:break-word]">
+      <div className="max-w-[80%]">
         <div>
           <strong>{data.name}</strong>
           <span className="ml-2 rounded bg-primary-lighter p-1 text-xs font-bold uppercase text-primary-main">
