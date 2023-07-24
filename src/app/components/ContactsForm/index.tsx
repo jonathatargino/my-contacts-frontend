@@ -59,11 +59,23 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
 
   const schema = z.object({
     name: z.string().nonempty({ message: "Este campo é obrigatório" }),
-    email: z.string().nonempty({ message: "Este campo é obrigatório" }).email({ message: "Este email é inválido" }),
-    phone: z
+    email: z
       .string()
-      .nonempty({ message: "Este campo é obrigatório" })
-      .transform((phoneNumber) => unformatPhone(phoneNumber)),
+      .email({ message: "Este email é inválido" })
+      .optional()
+      .or(z.literal(""))
+      .transform((email) => {
+        if (email === "") {
+          return null;
+        }
+      }),
+    phone: z.string().transform((phoneNumber) => {
+      if (phoneNumber !== "") {
+        return unformatPhone(phoneNumber);
+      }
+
+      return null;
+    }),
     category_id: z.string().nonempty({ message: "Este campo é obrigatório" }),
   });
 
@@ -77,9 +89,9 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
     defaultValues: editingContact
       ? {
           category_id: contact.category_id,
-          email: contact.email,
+          email: contact.email ? contact.email : "",
           name: contact.name,
-          phone: formatPhone(contact.phone),
+          phone: contact.phone ? formatPhone(contact.phone) : "",
         }
       : undefined,
   });
@@ -110,7 +122,7 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
         <InputWrapper errorMessage={errors?.email?.message}>
           <Input
             type="email"
-            placeholder="E-mail *"
+            placeholder="E-mail"
             {...register("email")}
             error={!!errors.email}
             autoComplete="off"
@@ -121,7 +133,7 @@ export default function ContactsForm({ buttonLabel, categories, contact }: Conta
         <InputWrapper errorMessage={errors?.phone?.message}>
           <Input
             type="tel"
-            placeholder="Telefone *"
+            placeholder="Telefone"
             {...register("phone", { onChange: handlePhoneChange })}
             error={!!errors.phone}
             autoComplete="off"

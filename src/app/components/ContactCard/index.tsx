@@ -21,13 +21,15 @@ export default function ContactCard({ data, onTrashIconClick }: ContactCardProps
       <div className="max-w-[80%]">
         <div>
           <strong>{data.name}</strong>
-          <span className="ml-2 rounded bg-primary-lighter p-1 text-xs font-bold uppercase text-primary-main">
-            {data.category_name}
-          </span>
+          {data.category_name ? (
+            <span className="ml-2 rounded bg-primary-lighter p-1 text-xs font-bold uppercase text-primary-main">
+              {data.category_name}
+            </span>
+          ) : null}
         </div>
 
-        <span className="block text-gray-200">{data.email}</span>
-        <span className="block text-gray-200">{formatPhone(data.phone)}</span>
+        {data.email ? <span className="block text-gray-200">{data.email}</span> : null}
+        {data.phone ? <span className="block text-gray-200">{formatPhone(data.phone)}</span> : null}
       </div>
 
       <div className="flex gap-2">
