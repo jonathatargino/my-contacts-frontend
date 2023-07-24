@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./components";
+import { Button } from "@/app/components";
 import Image from "next/image";
 import { sadIcon } from "@/assets/images";
 

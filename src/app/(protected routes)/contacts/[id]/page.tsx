@@ -1,6 +1,8 @@
 import { ContactsForm, FormHeader } from "@/app/components";
 import { CategoryService, ContactService } from "@/services";
+import { IContact } from "@/types";
 import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 
 interface EditContactPageProps {
   params: {
@@ -11,8 +13,15 @@ interface EditContactPageProps {
 export default async function EditContactPage({ params: { id } }: EditContactPageProps) {
   const authToken = cookies().get("authToken")?.value as string;
 
+  let contact: IContact;
+
+  try {
+    contact = await ContactService.getById({ id, authToken });
+  } catch {
+    notFound();
+  }
+
   const categories = await CategoryService.getAll({ authToken });
-  const contact = await ContactService.getById({ id, authToken });
 
   return (
     <div className="mt-12">
