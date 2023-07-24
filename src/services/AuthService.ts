@@ -13,6 +13,10 @@ class AuthService {
       headers: { Authorization: authToken },
     });
   }
+
+  logout() {
+    return this.httpClient.get<void>("/auth/logout");
+  }
 }
 
 export default new AuthService();

@@ -19,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={`${sora.className} mx-auto w-full max-w-[500px] bg-app-bg px-4 py-16 text-gray-900`}>
+      <body className={`${sora.className} relative mx-auto w-full max-w-[500px] bg-app-bg px-4 py-16 text-gray-900`}>
         <Providers>
           <ToastContainer />
           <Image src={logoIcon} alt="myContacts" className="mx-auto" />

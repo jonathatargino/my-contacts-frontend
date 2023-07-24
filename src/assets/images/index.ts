@@ -10,3 +10,4 @@ export { default as XCircleIcon } from "./x-circle.svg";
 export { default as onlineManagementIcon } from "./online-management.svg";
 export { default as googleLogo } from "./google-logo.svg";
 export { default as prohibitedIcon } from "./prohibited.svg";
+export { default as logoutIcon } from "./logout.svg";
