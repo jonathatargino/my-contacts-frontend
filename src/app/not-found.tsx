@@ -11,7 +11,7 @@ export default function NotFoundPage() {
       <Image className="my-16" src={sadIcon} alt="Carinha triste" width={160} height={160} />
       <h1 className="text-2xl font-bold text-danger-main">Página não encontrada</h1>
       <p>A página que você está tentando acessar não existe</p>
-      <Link className="mt-12" href="/">
+      <Link className="mt-12" href="/contacts">
         <Button>Voltar ao início</Button>
       </Link>
     </div>
