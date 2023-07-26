@@ -15,8 +15,12 @@ export default function Switch() {
   return (
     <>
       <div className="mx-auto grid max-w-[80%] grid-cols-2 overflow-hidden rounded border-2 border-primary-main">
-        <SwitchLink route={"contacts"} selectedRoute={selectedRoute} onClick={handleSwitchLinkClick} />
-        <SwitchLink route={"categories"} selectedRoute={selectedRoute} onClick={handleSwitchLinkClick} />
+        <SwitchLink route={"contacts"} selectedRoute={selectedRoute} onClick={handleSwitchLinkClick}>
+          contatos
+        </SwitchLink>
+        <SwitchLink route={"categories"} selectedRoute={selectedRoute} onClick={handleSwitchLinkClick}>
+          categorias
+        </SwitchLink>
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Link from "next/link";
+import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 export type MyContactsRoute = "contacts" | "categories";
@@ -8,9 +9,10 @@ interface SwitchLinkProps {
   route: MyContactsRoute;
   selectedRoute: MyContactsRoute;
   onClick: (route: MyContactsRoute) => void;
+  children: ReactNode;
 }
 
-export default function SwitchLink({ route, selectedRoute, onClick }: SwitchLinkProps) {
+export default function SwitchLink({ route, selectedRoute, onClick, children }: SwitchLinkProps) {
   return (
     <Link
       href={`/${route}`}
@@ -25,7 +27,7 @@ export default function SwitchLink({ route, selectedRoute, onClick }: SwitchLink
         ),
       )}
     >
-      {route}
+      {children}
     </Link>
   );
 }
