@@ -193,7 +193,8 @@ export default function List({ Card, ascendentOrderItems, descendentOrderItems, 
               Você ainda não tem{" "}
               {pathName === "/contacts" ? "nenhum contato cadastrado" : "nenhuma categoria cadastrada"}! Clique no botão
               <strong className="text-primary-main">
-                &quot;{pathName === "/contacts" ? "Novo contato" : "Nova categoria"}&quot;
+                {" "}
+                &quot;{pathName === "/contacts" ? "Novo contato" : "Nova categoria"}&quot;{" "}
               </strong>
               acima para cadastrar {pathName === "/contacts" ? "o seu primeiro" : "a sua primeira"}!
             </p>

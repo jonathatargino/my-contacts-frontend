@@ -27,7 +27,7 @@ export default async function AddContactPage() {
           <p className="text-center text-gray-200">
             É necessário possuir pelo menos uma categoria para criar contatos e você ainda não tem nenhuma categoria
             cadastrada! Clique no botão
-            <strong className="text-primary-main">&quot;Nova categoria&quot;</strong>
+            <strong className="text-primary-main"> &quot;Nova categoria&quot; </strong>
             acima para cadastrar a sua primeira!
           </p>
         </div>
