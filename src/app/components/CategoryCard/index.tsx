@@ -16,8 +16,8 @@ export default function CategoryCard({ data, onTrashIconClick }: CategoryCardPro
 
   return (
     <div className="flex justify-between bg-white p-4 shadow-soft [word-wrap:break-word] marker:items-center">
-      <strong className="max-w-[80%]">{data.name}</strong>
-      <div className="flex gap-2">
+      <strong className="max-w-[70%]">{data.name}</strong>
+      <div className="flex items-center gap-2">
         <Link href={`${pathName}/${data.id}`}>
           <Image src={pencilIcon} alt="Editar contato" />
         </Link>

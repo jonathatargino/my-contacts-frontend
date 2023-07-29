@@ -32,7 +32,7 @@ export default function ContactCard({ data, onTrashIconClick }: ContactCardProps
         {data.phone ? <span className="block text-gray-200">{formatPhone(data.phone)}</span> : null}
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         <Link href={`${pathName}/${data.id}`}>
           <Image src={pencilIcon} alt="Editar contato" />
         </Link>
