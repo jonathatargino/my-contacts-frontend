@@ -1,9 +1,15 @@
 import { ContactsForm, FormHeader } from "@/app/components";
 import { emptyBoxIcon } from "@/assets/images";
 import { CategoryService } from "@/services";
+import { Metadata } from "next";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Novo contato | MyContacts",
+  description: "Organize seus contatos com facilidade",
+};
 
 export default async function AddContactPage() {
   const authToken = cookies().get("authToken")?.value as string;

@@ -2,8 +2,14 @@ import { FormHeader } from "@/app/components";
 import CategoriesForm from "@/app/components/CategoriesForm";
 import { CategoryService } from "@/services";
 import { ICategory } from "@/types";
+import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Editar categoria | MyContacts",
+  description: "Organize seus contatos com facilidade",
+};
 
 interface EditCategoryPageProps {
   params: {

@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { logoIcon } from "@/assets/images";
 import { Providers, ToastContainer } from "@/app/components";
+import { Metadata } from "next";
 
 const sora = Sora({
   weight: ["400", "700"],
@@ -11,7 +12,7 @@ const sora = Sora({
   display: "swap",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "MyContacts",
   description: "Organize seus contatos com facilidade",
 };
